@@ -2,54 +2,44 @@ import art
 import gamedata as gd
 import random as rd
 
-print(art.logo)
+#initialize variables
+score = 0
+restart = True
+vs = art.vs
+logo = art.logo
 
-def fetch_a():
-    a = gd.data[rd.randint(0, 50)-1]# a is int
-    return a
+print(logo)
+
+# default 
+# #print(f"Compare A: {a["name"]}, a {a["description"]}, from {a["country"]}")
+
+# print(f"Compare A: {a["name"]}, a {a["description"]}, from {a["country"]}.")
+# print(f"Compare A: {b["name"]}, a {b["description"]}, from {b["country"]}: ")
+
+while restart:
+    if score>0:
+        a = b
+    else:
+        a = {}
+        a = gd.data[rd.randint(0, 50)-1]# a is dict
+    b = {}
+    b = gd.data[rd.randint(0, 50)-1]# b is dict
     
-def fetch_b():
-    b = gd.data[rd.randint(0, 50)-1]
-    return b
-     # b is int
+    a_fc = a["follower_count"]
+    b_fc = b["follower_count"]
 
-fetc_gd = {
-    "a":fetch_a,
-    "b":fetch_b
-        }
+    # print(a_fc)
+    print(f"Compare A: {a["name"]}, a {a["description"]}, from {a["country"]}.")
+    print(vs) #vs art
+    # print(b_fc)
+    guess = input(f"Compare B: {b["name"]}, a {b["description"]}, from {b["country"]}: ").lower() #fetch user guess
 
-#key is string
-def name(key):
-    name = fetc_gd[key]()["name"]
-    return name
-def desc(key):
-    desc = fetc_gd[key]()["description"]
-    return desc
-def country(key):
-    country = fetc_gd[key]()["country"]
-    return country
-def follower_count(key):
-    follower_count = fetc_gd[key]()["follower_count"]
-    return follower_count
-
-print(f"Compare A: {name("a")}, a {desc("a")}, from {country("a")}.")
-a_fc = follower_count("a")
-
-print(art.vs)
-
-b_fc = follower_count("b")
-print(f"Compare B: {name("b")}, a {desc("b")}, from {country("b")}: ")
-play = input().lower()
-
-
-
-# restart = True
-# while restart:
-
-
-
-
-
-
-
-# print("\n"*20)
+    if (guess == "a" and a_fc>b_fc) or (guess == "b" and b_fc>a_fc):
+        score+=1
+        print(f"You're right! Current score: {score}.")
+    else:
+        print("\n"*20)
+        print(logo)
+        print(f"Sorry, that's wrong. Final score: {score}.")
+        restart = False
+        
